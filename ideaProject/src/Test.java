@@ -1,33 +1,29 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.Scanner;
 
 public class Test {
 
-    //main method will be called first when program is executed
-    public static void main(String args[]){
-    /*
-    Syntax of java object creation is,
-    <class-name> object-name = new <class-constructor>;
-    */
-      /*  JavaClassExample javaClassExample = new JavaClassExample();
-        //set name member of this object
-        javaClassExample.setName("Visitor");
-        // print the name
-        System.out.println("Hello " + javaClassExample.getName()); */
+    public static void main(String args[]) throws IOException {
+
+        Test javaClassExample = new Test();
+        javaClassExample.readFromInputStream();
     }
 
-    private String readFromInputStream(InputStream inputStream)
+    private void readFromInputStream()
             throws IOException {
-        StringBuilder resultStringBuilder = new StringBuilder();
-        try (BufferedReader br
-                     = new BufferedReader(new InputStreamReader(inputStream))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                resultStringBuilder.append(line).append("\n");
+        try {
+            String folder = "src/inputs/";
+            String filename = "00-example.txt";
+            File file = new File(folder+filename);
+            Scanner myReader = new Scanner(file);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                System.out.println(data);
             }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
-        return resultStringBuilder.toString();
     }
 }
